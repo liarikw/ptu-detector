@@ -166,11 +166,16 @@ async def analyze_image(image_bytes: bytes) -> dict:
         ],
     }
 
+    # Use ?key= query-param auth — the method the AI Studio docs use;
+    # works universally across API key formats.
     url = f"{ENDPOINT}/{MODEL}:generateContent"
-    headers = {"x-goog-api-key": api_key, "content-type": "application/json"}
+    headers = {"content-type": "application/json"}
+    params = {"key": api_key}
 
     async with httpx.AsyncClient(timeout=60.0) as client:
-        r = await client.post(url, headers=headers, json=payload)
+        r = await client.post(url, headers=headers, params=params, json=payload)
+
+    print(f"[analyzer] Gemini status={r.status_code}, body_preview={r.text[:600]!r}", flush=True)
 
     if r.status_code >= 400:
         raise RuntimeError(f"Gemini error {r.status_code}: {r.text[:500]}")

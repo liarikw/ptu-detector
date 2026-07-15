@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ptu-detector",
+      "runtimeExecutable": "/Users/arikli/claudecode/ptu-detector/.venv/bin/uvicorn",
+      "runtimeArgs": ["main:app", "--host", "127.0.0.1", "--port", "8123", "--app-dir", "/Users/arikli/claudecode/ptu-detector/backend"],
+      "port": 8123
+    }
+  ]
+}
